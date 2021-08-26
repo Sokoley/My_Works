@@ -1,0 +1,94 @@
+<!-- <div id="container"> -->
+  <div id="panel">
+    <div id="panel-container">
+<!--       <div class="panel-content">
+        <h1>Hello</h1>
+        <p>My name is Seppe Dekeyser</p>
+        <p>I make fancy stuff.</p>
+        <p>Sometimes.</p>
+      </div> -->
+    </div>
+  </div>
+<!-- </div> -->
+
+<style>
+  /*@import url('https://fonts.googleapis.com/css?family=Montserrat');*/
+
+
+/*#container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}*/
+
+#panel, #panel-container {
+  width: 400px;
+  height: 400px;
+}
+
+#panel-container {
+  /*position: absolute;*/
+  /*background: url("https://images.unsplash.com/photo-1550587542-1668407b73d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80") center top;*/
+  /*background-size: cover;*/
+  background-color: #383d52;
+  transform: perspective(400px) rotateX(0deg) rotateY(0deg);
+  transform-style: preserve-3d;
+  box-shadow: 1.5rem 2.5rem 5rem 0.7rem rgba(0,0,0,0.13);
+/*  display: flex;
+  justify-content: center;
+  align-items: center;*/
+}
+
+/*.panel-content {
+  color: black;
+  text-align: center;
+  padding: 20px;
+  transform: translateZ(80px) scale(0.8);
+  transform-style: preserve-3d;
+  overflow-wrap: break-word;
+}*/
+</style>
+
+<script>
+let myPanel = document.getElementById("panel");
+let subpanel = document.getElementById("panel-container");
+
+myPanel.onmousemove = transformPanel;
+myPanel.onmouseenter = handleMouseEnter;
+myPanel.onmouseleave = handleMouseLeave;
+
+let mouseX, mouseY;
+
+let transformAmount = 5;
+
+function transformPanel(mouseEvent) {
+    mouseX = mouseEvent.pageX;
+    mouseY = mouseEvent.pageY;
+
+    const centerX = myPanel.offsetLeft + myPanel.clientWidth / 2;
+    const centerY = myPanel.offsetTop + myPanel.clientHeight / 2;
+
+    const percentX = (mouseX - centerX) / (myPanel.clientWidth / 2);
+    const percentY = -((mouseY - centerY) / (myPanel.clientHeight / 2));
+
+    subpanel.style.transform = "perspective(400px) rotateY(" + percentX * transformAmount + "deg) rotateX(" + percentY * transformAmount + "deg)";
+}
+
+function handleMouseEnter() {
+    setTimeout(() => {
+        subpanel.style.transition = "";
+    }, 100);
+    subpanel.style.transition = "transform 0.1s";
+}
+
+function handleMouseLeave() {
+    subpanel.style.transition = "transform 0.1s";
+    setTimeout(() => {
+        subpanel.style.transition = "";
+    }, 100);
+
+    subpanel.style.transform = "perspective(400px) rotateY(0deg) rotateX(0deg)";
+}
+</script>
